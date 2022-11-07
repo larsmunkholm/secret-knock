@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/larsmunkholm/secret-knock/issues"
   },
-  "homepage": "https://github.com/larsmunkholm/secret-knock#readme",
+  "homepage": "https://github.com/larsmunkholm/secret-knock/tree/main/packages/react#readme",
   "keywords": [
     "passcode",
     "password",
