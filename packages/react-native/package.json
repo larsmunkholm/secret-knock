@@ -1,12 +1,14 @@
 {
   "name": "@secret-knock/react-native",
-  "version": "0.0.3",
+  "version": "1.0.1",
   "description": "",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": ["lib"],
   "scripts": {
-    "build": "rimraf ./lib && tsc"
+    "build": "rimraf ./lib && tsc",
+    "clean": "eslint --fix \"./src/**/*.*\" && prettier --write \"./src/**/*.*\"",
+    "publish": "npm run clean && npm run build && npm publish"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,6 @@
     "react-native": "*"
   },
   "dependencies": {
-    "@secret-knock/core": "^0.0.3"
+    "@secret-knock/core": "^1.0.1"
   }
 }
