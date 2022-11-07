@@ -1,0 +1,12 @@
+// prettier-ignore
+{
+  "extends": "../../tsconfig.json",
+  "files": ["./src/index.tsx"],
+  "buildOptions": {
+
+  },
+  "compilerOptions": {
+    "outDir": "dist",
+    "jsx": "react-native"
+  }
+}

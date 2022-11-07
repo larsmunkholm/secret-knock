@@ -1,0 +1,12 @@
+// prettier-ignore
+{
+  "extends": "../../tsconfig.json",
+  "files": ["./src/index.ts"],
+  "buildOptions": {
+
+  },
+  "compilerOptions": {
+    "outDir": "dist",
+    "jsx": "react"
+  }
+}

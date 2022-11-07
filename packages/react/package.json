@@ -1,0 +1,39 @@
+{
+  "name": "@secret-knock/react",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf ./dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larsmunkholm/secret-knock.git"
+  },
+  "author": "Lars Munkholm",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/larsmunkholm/secret-knock/issues"
+  },
+  "homepage": "https://github.com/larsmunkholm/secret-knock#readme",
+  "keywords": [
+    "passcode",
+    "password",
+    "hidden",
+    "secret",
+    "secretknock",
+    "knock",
+    "react"
+  ],
+  "peerDependencies": {
+    "@types/react": "*",
+    "react": "*"
+  },
+  "dependencies": {
+    "@secret-knock/core": "^0.0.1"
+  }
+}
