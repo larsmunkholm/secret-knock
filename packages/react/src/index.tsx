@@ -4,7 +4,7 @@ import useSecretKnockCore from "@secret-knock/core";
 interface Options {
     component?: any;
     longPressMs?: number;
-    waitMs?: number;
+    pauseMs?: number;
     timeoutMs?: number;
 }
 
@@ -15,7 +15,7 @@ interface Options {
  * @param {Object} [options]
  * @param {String} [options.component]   A component that accepts onMouseDown, onMouseUp, onTouchStart, and onTouchEnd - defaults to HTML's button
  * @param {String} [options.longPressMs] How long is a long press? Defaults to 500 ms
- * @param {String} [options.waitMs]      How long is a wait between presses going to be? Defaults to 1500 ms
+ * @param {String} [options.pauseMs]     How long is a pause between knocks going to be? Defaults to 1500 ms
  * @param {String} [options.timeoutMs]   How long before the secret knock times out and resets? Defaults to 2000 ms
  */
 export const useSecretKnock = <T extends React.ReactNode>(
@@ -33,7 +33,7 @@ export const useSecretKnock = <T extends React.ReactNode>(
 
     const Knocker = useCallback(
         // @ts-ignore
-        <T extends React.ReactNode>({ children, ...props }) => (
+        ({ children, ...props }: T) => (
             <Component
                 {...props}
                 onMouseDown={onKnockIn}
