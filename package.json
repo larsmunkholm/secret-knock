@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A fun but very non-secure method for hiding stuff in your app",
   "scripts": {
+    "build": "npm run build --workspaces",
     "prettier": "prettier --write \"./packages/*/src/**/*.(ts|tsx)\""
   },
   "repository": {

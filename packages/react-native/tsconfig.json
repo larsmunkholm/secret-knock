@@ -6,7 +6,7 @@
 
   },
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "lib",
     "jsx": "react-native"
   }
 }
