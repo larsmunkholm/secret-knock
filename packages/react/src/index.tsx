@@ -26,10 +26,8 @@ export const useSecretKnock = <T extends React.ReactNode>(
         component: <button />,
         ...options,
     };
-    const { progress, reset, onKnockIn, onKnockOut } = useSecretKnockCore(
-        sequence,
-        coreOptions,
-    );
+    const { progress, getInputSequence, reset, onKnockIn, onKnockOut } =
+        useSecretKnockCore(sequence, coreOptions);
 
     const Knocker = useCallback(
         // @ts-ignore
@@ -52,6 +50,7 @@ export const useSecretKnock = <T extends React.ReactNode>(
         locked: progress < 1,
         unlocked: progress >= 1,
         progress,
+        getInputSequence,
         reset,
         Knocker,
     };
