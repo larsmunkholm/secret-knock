@@ -4,7 +4,8 @@
   "description": "A fun but very non-secure method for hiding stuff in your app",
   "scripts": {
     "build": "npm run build --workspaces",
-    "clean": "eslint --fix \"./packages/*/src/**/*.*\" && prettier --write \"./packages/*/src/**/*.*\""
+    "clean": "eslint --fix \"./packages/*/src/**/*.*\" && prettier --write \"./packages/*/src/**/*.*\"",
+    "deploy": "npm run deploy --workspaces"
   },
   "repository": {
     "type": "git",

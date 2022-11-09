@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rimraf ./lib && tsc",
     "clean": "eslint --fix \"./src/**/*.*\" && prettier --write \"./src/**/*.*\"",
-    "publish": "npm run clean && npm run build && npm publish"
+    "deploy": "npm run clean && npm run build && npm publish"
   },
   "repository": {
     "type": "git",
