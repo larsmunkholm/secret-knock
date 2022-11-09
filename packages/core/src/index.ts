@@ -74,7 +74,7 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
                             ),
                         pauseMs,
                     );
-                } else {
+                } else if (locked.current) {
                     timeout.current = setTimeout(() => reset(), timeoutMs);
                 }
             }
