@@ -4,6 +4,7 @@ interface Options {
     longPressMs?: number;
     pauseMs?: number;
     timeoutMs?: number;
+    resetWhenWrong?: boolean;
 }
 
 const useSecretKnockCore = (sequence: string, options?: Options) => {
@@ -12,12 +13,13 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
     const inputSequence = useRef("");
     const knockedInAt = useRef(0);
     const locked = useRef(true);
-    const timeout = useRef<NodeJS.Timeout>();
+    const timeout = useRef<ReturnType<typeof setTimeout>>();
 
-    const { longPressMs, pauseMs, timeoutMs } = {
+    const { longPressMs, pauseMs, timeoutMs, resetWhenWrong } = {
         longPressMs: 500,
         pauseMs: 1500,
         timeoutMs: 2000,
+        resetWhenWrong: true,
         ...options,
     };
 
@@ -49,7 +51,10 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
             const match = getMatch(totalInput, expectedSequence.current);
             const newProgress = match.length / expectedSequence.current.length;
 
-            if (match.length <= inputSequence.current.length) {
+            if (
+                match.length <= inputSequence.current.length &&
+                resetWhenWrong
+            ) {
                 reset();
             } else {
                 setProgress(newProgress);
@@ -74,7 +79,7 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
                 }
             }
         },
-        [getMatch, pauseMs, timeoutMs],
+        [getMatch, pauseMs, timeoutMs, resetWhenWrong],
     );
 
     const onKnockIn = useCallback(() => {

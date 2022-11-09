@@ -31,7 +31,8 @@ export const useSecretKnock = <T extends Record<string, any> = PressableProps>(
         useSecretKnockCore(sequence, coreOptions);
 
     const Knocker = useCallback<(props: T) => JSX.Element>(
-        ({ props }) => (
+        ({ children, ...props }) => (
+            // @ts-ignore
             <Component
                 {...props}
                 onPressIn={(event) => {
@@ -47,7 +48,7 @@ export const useSecretKnock = <T extends Record<string, any> = PressableProps>(
                     }
                 }}
             >
-                {props.children}
+                {children}
             </Component>
         ),
         [Component, onKnockIn, onKnockOut],
