@@ -1,6 +1,6 @@
 {
   "name": "@secret-knock/react-native",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/larsmunkholm/secret-knock/issues"
   },
-  "homepage": "https://github.com/larsmunkholm/secret-knock#readme",
+  "homepage": "https://github.com/larsmunkholm/secret-knock/tree/main/packages/react-native#readme",
   "keywords": [
     "passcode",
     "password",
@@ -39,6 +39,6 @@
     "react-native": "*"
   },
   "dependencies": {
-    "@secret-knock/core": "^1.0.1"
+    "@secret-knock/core": "^1.0.2"
   }
 }

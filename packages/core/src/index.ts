@@ -4,21 +4,35 @@ interface Options {
     longPressMs?: number;
     pauseMs?: number;
     timeoutMs?: number;
+    resetWhenWrong?: boolean;
 }
 
 const useSecretKnockCore = (sequence: string, options?: Options) => {
     const [progress, setProgress] = useState(0);
     const expectedSequence = useRef(sequence);
     const inputSequence = useRef("");
-    const awaitPressOut = useRef(false);
+    const knockedInAt = useRef(0);
     const locked = useRef(true);
-    const timeout = useRef<NodeJS.Timeout>();
+    const timeout = useRef<ReturnType<typeof setTimeout>>();
 
-    const { longPressMs, pauseMs, timeoutMs } = {
+    const { longPressMs, pauseMs, timeoutMs, resetWhenWrong } = {
         longPressMs: 500,
         pauseMs: 1500,
         timeoutMs: 2000,
+        resetWhenWrong: true,
         ...options,
+    };
+
+    const reset = (newSequence?: string) => {
+        clearTimeout(timeout.current);
+        setProgress(0);
+        knockedInAt.current = 0;
+        inputSequence.current = "";
+        locked.current = true;
+
+        if (typeof newSequence === "string") {
+            expectedSequence.current = newSequence;
+        }
     };
 
     const getMatch = useCallback((a: string, b: string): string => {
@@ -37,27 +51,40 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
             const match = getMatch(totalInput, expectedSequence.current);
             const newProgress = match.length / expectedSequence.current.length;
 
-            setProgress(newProgress);
-
-            awaitPressOut.current = false;
-            inputSequence.current = match;
-            locked.current = newProgress < 1;
-
-            if (expectedSequence.current[match.length] === "/") {
-                timeout.current = setTimeout(
-                    () => updateInputSequence("/"),
-                    pauseMs,
-                );
+            if (
+                match.length <= inputSequence.current.length &&
+                resetWhenWrong
+            ) {
+                reset();
             } else {
-                timeout.current = setTimeout(() => reset(), timeoutMs);
+                setProgress(newProgress);
+
+                knockedInAt.current = 0;
+                inputSequence.current = match;
+                locked.current = newProgress < 1;
+
+                if (
+                    expectedSequence.current[match.length] === " " ||
+                    expectedSequence.current[match.length] === "/"
+                ) {
+                    timeout.current = setTimeout(
+                        () =>
+                            updateInputSequence(
+                                expectedSequence.current[match.length],
+                            ),
+                        pauseMs,
+                    );
+                } else {
+                    timeout.current = setTimeout(() => reset(), timeoutMs);
+                }
             }
         },
-        [getMatch, pauseMs, timeoutMs],
+        [getMatch, pauseMs, timeoutMs, resetWhenWrong],
     );
 
     const onKnockIn = useCallback(() => {
         if (locked.current) {
-            awaitPressOut.current = true;
+            knockedInAt.current = Date.now();
             clearTimeout(timeout.current);
             timeout.current = setTimeout(
                 () => updateInputSequence("-"),
@@ -67,24 +94,15 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
     }, [updateInputSequence, longPressMs]);
 
     const onKnockOut = useCallback(() => {
-        if (locked.current && awaitPressOut.current) {
+        if (locked.current && knockedInAt.current) {
             clearTimeout(timeout.current);
             updateInputSequence(".");
         }
     }, [updateInputSequence]);
 
-    const reset = (newSequence?: string) => {
-        setProgress(0);
-        locked.current = true;
-        inputSequence.current = "";
-
-        if (typeof newSequence === "string") {
-            expectedSequence.current = newSequence;
-        }
-    };
-
     return {
         progress,
+        getInputSequence: () => inputSequence.current,
         reset,
         onKnockIn,
         onKnockOut,
