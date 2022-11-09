@@ -42,9 +42,10 @@ import { MyCustomButton } from "../MyCustomButton";
 const { ... } = useSecretKnock("...",
     {
         component: MyCustomButton,
-        longPressMs: 1000,
-        pauseMs: 6000,
-        timeoutMs: 9000,
+        longPressMs: 500,
+        pauseMs: 1500,
+        timeoutMs: 2000,
+        resetWhenWrong: true,
     }
 );
 ```
