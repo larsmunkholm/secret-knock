@@ -19,7 +19,7 @@ npm install --save @secret-knock/react-native
 
 ### 1. The secret sequence
 
-A mandatory string representing the correct sequence of knock:
+A mandatory string representing the correct sequence of knocks:
 
 `const { ... } = useSecretKnock("...---/...");`
 
