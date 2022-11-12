@@ -19,7 +19,7 @@ npm install --save @secret-knock/react-native
 
 ### 1. The secret sequence
 
-A mandatory string representing the correct sequence of knock:
+A mandatory string representing the correct sequence of knocks:
 
 `const { ... } = useSecretKnock("...---/...");`
 
@@ -42,9 +42,10 @@ import { MyCustomButton } from "../MyCustomButton";
 const { ... } = useSecretKnock("...",
     {
         component: MyCustomButton,
-        longPressMs: 1000,
-        pauseMs: 6000,
-        timeoutMs: 9000,
+        longPressMs: 500,
+        pauseMs: 1500,
+        timeoutMs: 2000,
+        resetWhenWrong: true,
     }
 );
 ```
