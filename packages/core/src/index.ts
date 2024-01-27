@@ -23,7 +23,7 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
         ...options,
     };
 
-    const reset = (newSequence?: string) => {
+    const reset = useCallback((newSequence?: string) => {
         clearTimeout(timeout.current);
         setProgress(0);
         knockedInAt.current = 0;
@@ -33,7 +33,7 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
         if (typeof newSequence === "string") {
             expectedSequence.current = newSequence;
         }
-    };
+    }, []);
 
     const getMatch = useCallback((a: string, b: string): string => {
         if (a.endsWith(b)) {
@@ -79,7 +79,7 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
                 }
             }
         },
-        [getMatch, pauseMs, timeoutMs, resetWhenWrong],
+        [getMatch, resetWhenWrong, reset, pauseMs, timeoutMs],
     );
 
     const onKnockIn = useCallback(() => {
