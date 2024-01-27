@@ -1,8 +1,8 @@
-import React, { ButtonHTMLAttributes, useCallback } from "react";
+import React, { ButtonHTMLAttributes, ReactNode, useCallback } from "react";
 import useSecretKnockCore from "@secret-knock/core";
 
 interface Options<T> {
-    component?: (props: T) => JSX.Element;
+    component?: (props: T) => ReactNode;
     longPressMs?: number;
     pauseMs?: number;
     timeoutMs?: number;
@@ -33,7 +33,7 @@ export const useSecretKnock = <
     const { progress, getInputSequence, reset, onKnockIn, onKnockOut } =
         useSecretKnockCore(sequence, coreOptions);
 
-    const Knocker = useCallback<(props: T) => JSX.Element>(
+    const Knocker = useCallback<(props: T) => ReactNode>(
         ({ children, ...props }) => (
             // @ts-ignore
             <Component

@@ -19,7 +19,7 @@ const useSecretKnockCore = (sequence: string, options?: Options) => {
         longPressMs: 500,
         pauseMs: 1500,
         timeoutMs: 2000,
-        resetWhenWrong: true,
+        resetWhenWrong: false,
         ...options,
     };
 
